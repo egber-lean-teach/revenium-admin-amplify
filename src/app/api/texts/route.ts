@@ -1,5 +1,4 @@
 import "../index";
-import { container } from "tsyringe";
 import { NextRequest, NextResponse } from "next/server";
 import UtilApplication from "../utils/util.application";
 import { textService as TextService } from "../services/texts.service";
