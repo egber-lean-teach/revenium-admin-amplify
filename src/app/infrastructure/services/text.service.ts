@@ -66,6 +66,22 @@ class TextService {
     }
   }
 
+  public async updateText(
+    request: IText,
+    id: string
+  ): Promise<IResponse<ITextResponse>> {
+    try {
+      const response = await this.utilInfrastructure.put<
+        IText,
+        IResponse<ITextResponse>
+      >("texts", request, id);
+      console.log("response updateText", response);
+      return response;
+    } catch (error: unknown) {
+      throw error;
+    }
+  }
+
   public async deleteText(id: string): Promise<IResponse<ITextResponse>> {
     try {
       const response = await this.utilInfrastructure.delete<

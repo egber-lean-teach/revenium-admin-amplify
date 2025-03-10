@@ -11,7 +11,7 @@ import {
   textInitial,
 } from "@/app/core/application/interfaces/text.interface";
 import organizationService from "@/app/infrastructure/services/text.service";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Section from "../molecules/Section";
 import Title from "../atoms/Title";
@@ -87,7 +87,7 @@ export default function DashboardSectionOrganisms({
       code: data.statusCode,
       status: true,
     });
-    router.push("/help_text");
+    router.push("/dashboard/help_text");
   };
 
   return (
@@ -121,7 +121,7 @@ export default function DashboardSectionOrganisms({
             className="cursor-pointer border-[var(--color-gray-light-three)] border-1 rounded-[6px] p-2 hover:bg-[var(--color-gray-light-three)]"
             onClick={() => {
               setModalLoadingContent(true);
-              router.push("/help_text");
+              router.push("/dashboard/help_text");
             }}
           >
             <IconReload />
@@ -134,7 +134,7 @@ export default function DashboardSectionOrganisms({
             size="md"
             title="Create text"
             subtitle=""
-            returnPage="help_text"
+            returnPage="/dashboard/help_text"
           >
             <form
               className="w-[100%] flex flex-col gap-3"

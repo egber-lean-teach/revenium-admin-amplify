@@ -53,7 +53,7 @@ export default function Modal({
                 code: 0,
                 status: !open.status,
               });
-              router.push(`/${returnPage}`);
+              router.push(`${returnPage}`);
             }}
           />
         </div>

@@ -58,6 +58,22 @@ export class UtilInfrastructure {
     }
   }
 
+  public async put<B, T>(endpoint: string, request: B, id: string): Promise<T> {
+    try {
+      const headers = this.getHeaders();
+      const response = await this.fetApi<B>(
+        `${this.baseUrl}/${endpoint}?id=${id}`,
+        "PUT",
+        headers,
+        request
+      );
+      console.log("response", response);
+      return await response.json();
+    } catch (error: unknown) {
+      throw error;
+    }
+  }
+
   public async delete<T>(endpoint: string, id: string): Promise<T> {
     try {
       const headers = this.getHeaders();
