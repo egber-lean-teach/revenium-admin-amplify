@@ -6,13 +6,21 @@ import UtilApplication from "../utils/util.application";
 
 export async function GET(): Promise<NextResponse> {
   try {
-    const textService = container.resolve(TextService);
-    const texts = await textService.getAll();
+    // const textService = container.resolve(TextService);
+    // const texts = await textService.getAll();
     return NextResponse.json(
       {
         message: "Get all texts success",
         statusCode: 200,
-        data: texts,
+        data: [
+          {
+            category: "category1",
+            subcategory: "subcategory1",
+            name: "name1",
+            description: "description1",
+            id: "id1",
+          },
+        ],
       },
       { status: 200 }
     );

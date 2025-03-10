@@ -1,7 +1,7 @@
 import { IS3ClientRequest } from "@/app/core/application/dto/s3ClientRequest";
 
 const s3Data: IS3ClientRequest = {
-  bucketName: process.env.NEXT_PUBLIC_BUCKET_NAME_AWS || "",
+  bucketName: process.env.NEXT_PUBLIC_BUCKET_NAME_AWS || "revenium-adminn",
   key: process.env.NEXT_PUBLIC_KEY_AWS || "",
   region: process.env.NEXT_PUBLIC_REGION_AWS || "",
   secret_access_key: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY_AWS || "",
