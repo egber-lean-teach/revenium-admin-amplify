@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
-import ManageUser from "./ui/atoms/ManageUser";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,15 +29,13 @@ export default function RootLayout({
 
   return (
     <ClerkProvider publishableKey={publishableKey}>
-      <ManageUser>
-        <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased w-[100vw]`}
-          >
-            {children}
-          </body>
-        </html>
-      </ManageUser>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased w-[100vw]`}
+        >
+          {children}
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
