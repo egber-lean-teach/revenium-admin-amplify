@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function EntryPoint() {
-  return <div>Hello world</div>;
+  redirect("/dashboard/help_text");
 }

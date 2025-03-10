@@ -28,12 +28,12 @@ export default function IconContent({
             <ul>
               <li className="flex gap-4">
                 <div className="w-[30px] h-[30px] rounded-[50%] bg-[var(--color-green)] flex justify-center items-center text-white font-bold">
-                  <p>{(user && user.firstName[0]) || "User"}</p>
+                  <p>{(user && user.firstName[0]) || "U"}</p>
                 </div>
                 <div>
-                  <h6>{user?.fullName}</h6>
+                  <h6>{user?.fullName || "User"}</h6>
                   <p className="text-[var(--color-text-gray)] text-[.8rem]">
-                    {user?.emailAddress}
+                    {user?.emailAddress || "user@gmail.com"}
                   </p>
                 </div>
               </li>
