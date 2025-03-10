@@ -4,15 +4,16 @@ import DashboardSectionOrganisms from "@/app/ui/organisms/DashboardSection.organ
 
 interface IHelp_textViewProps {
   searchParams: {
-    page: string;
-    totalPage: string;
-    name: string;
+    page?: string;
+    totalPage?: string;
+    name?: string;
   };
 }
+
 export const generateMetadata = async ({
   searchParams,
 }: IHelp_textViewProps): Promise<{ title: string; description: string }> => {
-  const page: number = await parseInt(searchParams?.page || "1");
+  const page: number = parseInt(searchParams?.page || "1");
 
   return {
     title: `Help Texts - Page ${page}`,
