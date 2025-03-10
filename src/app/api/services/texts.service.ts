@@ -16,6 +16,7 @@ class TextService {
       const dataArray = Object.entries(data).map(([key, value]) => {
         return { key, value };
       });
+      console.log("data -----", data);
       const dataPaginated = dataArray.slice(page * size, page * size + size);
       const originalFormat = dataPaginated.reduce(
         (acc: ITextResponse, { key, value }) => {
