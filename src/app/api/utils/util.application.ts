@@ -4,12 +4,10 @@ import {
   PutObjectCommand,
   PutObjectCommandInput,
 } from "@aws-sdk/client-s3";
-import { injectable } from "tsyringe";
 import s3Data from "@/app/api/config/s3";
 import { S3Model } from "../models/s3.model";
 import { IBucket } from "@/app/core/application/interfaces/bucket.interface";
 
-@injectable()
 export default class UtilApplication {
   private s3Client: S3Client;
 

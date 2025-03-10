@@ -1,12 +1,12 @@
-import { inject, injectable } from "tsyringe";
 import UtilApplication from "@/app/api/utils/util.application";
 import { IDataItem, S3Model } from "@/app/api/models/s3.model";
 
-@injectable()
 export default class TextRepository {
-  constructor(
-    @inject(UtilApplication) private utilApplication: UtilApplication
-  ) {}
+  private utilApplication: UtilApplication;
+
+  constructor() {
+    this.utilApplication = new UtilApplication();
+  }
 
   public async getTexts(): Promise<S3Model> {
     try {

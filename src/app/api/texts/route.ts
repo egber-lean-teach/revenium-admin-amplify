@@ -1,26 +1,17 @@
 import "../index";
 import { container } from "tsyringe";
 import { NextRequest, NextResponse } from "next/server";
-import TextService from "@/app/api/services/texts.service";
 import UtilApplication from "../utils/util.application";
+import { textService as TextService } from "../services/texts.service";
 
 export async function GET(): Promise<NextResponse> {
   try {
-    // const textService = container.resolve(TextService);
-    // const texts = await textService.getAll();
+    const texts = await TextService.getAll();
     return NextResponse.json(
       {
         message: "Get all texts success",
         statusCode: 200,
-        data: [
-          {
-            category: "category1",
-            subcategory: "subcategory1",
-            name: "name1",
-            description: "description1",
-            id: "id1",
-          },
-        ],
+        data: texts,
       },
       { status: 200 }
     );
@@ -53,8 +44,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     );
   }
   try {
-    const textService = container.resolve(TextService);
-    const textCreate = await textService.postText({
+    const textCreate = await TextService.postText({
       category,
       description,
       name,
@@ -131,8 +121,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const textService = container.resolve(TextService);
-    const textUpdate = await textService.putText({
+    const textUpdate = await TextService.putText({
       category,
       description,
       name,
@@ -185,8 +174,7 @@ export async function DELETE(req: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const textService = container.resolve(TextService);
-    const textDelete = await textService.deleteText(id);
+    const textDelete = await TextService.deleteText(id);
 
     console.log("text delete", textDelete);
 

@@ -1,13 +1,11 @@
-import { inject, injectable } from "tsyringe";
 import TextRepository from "@/app/api/repositories/texts.repository";
 import { IDataItem, S3Model } from "@/app/api/models/s3.model";
 
-@injectable()
-export default class TextService {
-  constructor(
-    @inject(TextRepository)
-    private textRepository: TextRepository
-  ) {}
+class TextService {
+  private textRepository: TextRepository;
+  constructor() {
+    this.textRepository = new TextRepository();
+  }
   public async getAll() {
     try {
       return await this.textRepository.getTexts();
@@ -65,3 +63,6 @@ export default class TextService {
     }
   }
 }
+
+const textService = new TextService();
+export { textService };
