@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
+import ManageUser from "./ui/atoms/ManageUser";
 
-const geistSans = Geist({
+const geistSans = localFont({
+  src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  weight: "100 900",
 });
-
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {
@@ -22,13 +25,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const publishableKey: string =
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
+
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider publishableKey={publishableKey}>
+      <ManageUser>
+        <html lang="en">
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased w-[100vw]`}
+          >
+            {children}
+          </body>
+        </html>
+      </ManageUser>
+    </ClerkProvider>
   );
 }

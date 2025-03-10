@@ -7,6 +7,9 @@ export default async function Help_textView() {
     const texts = await TextService.getTexts();
     const categories = await TextService.getCategories();
     const subcategories = await TextService.getSubcategories();
+    console.log("texts", texts);
+    console.log("categories", categories);
+    console.log("subcategories", subcategories);
     revalidatePath("/dashboard/help_text");
     return (
       <DashboardSectionOrganisms

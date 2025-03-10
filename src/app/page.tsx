@@ -1,5 +1,9 @@
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export default function EntryPoint() {
-  redirect("/dashboard/help_text");
+export default async function Home() {
+  const { userId } = await auth();
+
+  if (userId) redirect("/dashboard/help_text");
+  redirect("/sign-in");
 }
