@@ -3,7 +3,9 @@ import DashboardSectionOrganisms from "@/app/ui/organisms/DashboardSection.organ
 
 export default async function Help_textView() {
   try {
-    const texts = await TextService.getTexts();
+    const texts = await fetch(
+      `${process.env.NEXT_PUBLIC_URL_API}/api/texts`
+    ).then((response) => response.json());
     console.log("texts", texts);
     return (
       <DashboardSectionOrganisms
@@ -13,6 +15,7 @@ export default async function Help_textView() {
       />
     );
   } catch (error: unknown) {
-    return <div>error {JSON.stringify(error)}</div>;
+    console.log("texts ---");
+    return <div>Not data avaiable. ERROR: {JSON.stringify(error)}</div>;
   }
 }
