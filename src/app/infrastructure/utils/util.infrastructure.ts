@@ -1,5 +1,5 @@
 export class UtilInfrastructure {
-  private baseUrl: string = `http://localhost:3000/api`;
+  private baseUrl: string = `/api`;
 
   constructor(baseUrlClient?: string) {
     this.baseUrl = baseUrlClient || this.baseUrl;
