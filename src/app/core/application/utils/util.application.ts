@@ -16,7 +16,6 @@ export class UtilApplicationInternal {
   }
 
   public static verifySpace(value: string): boolean {
-    console.log("value.---", value);
     const separateValue = value.split("");
     const verify = separateValue.find((letter: string) => {
       if (letter === " ") return true;
@@ -31,7 +30,6 @@ export class UtilApplicationInternal {
     name: string
   ): string {
     const generate: string = `${category}Category_${subcategory}Subcategory_${name}Name_${category[0]}${subcategory[0]}${name[0]}Combination`;
-    console.log("generate", generate);
     return generate;
   }
 }

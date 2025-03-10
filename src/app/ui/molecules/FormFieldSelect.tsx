@@ -43,7 +43,6 @@ export default function FormFieldSelect<B>({
       return;
     }
     const verify: boolean = UtilApplicationInternal.verifySpace(value);
-    console.log("verify", verify);
     if (verify) {
       setShowError(errors[1]);
       return;
@@ -54,7 +53,6 @@ export default function FormFieldSelect<B>({
 
   const handleChangeValueSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
-    console.log("value select", value);
     setFormCreate({
       ...formCreate,
       [name]: value,

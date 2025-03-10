@@ -244,7 +244,6 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
               <Button
                 variant="third"
                 onClick={() => {
-                  console.log("form data", editFormData);
                   setEditFormData({
                     ...editFormData,
                     ["id"]: UtilApplicationInternal.generateKey(

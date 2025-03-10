@@ -13,12 +13,17 @@ class TextService {
     this.utilInfrastructure = new UtilInfrastructure();
   }
 
-  public async getTexts(): Promise<ITextResponseComplete> {
+  public async getTexts(
+    page: number = 0,
+    size: number = 3
+  ): Promise<ITextResponseComplete> {
+    console.log("page", page);
+    console.log("size", size);
     try {
       const data = await this.utilInfrastructure.get<ITextResponseComplete>(
-        "texts"
+        `texts?page=${page}&size=${size}`
       );
-      console.log("data", data);
+
       return data;
     } catch (error: unknown) {
       throw error;
@@ -59,7 +64,6 @@ class TextService {
         IText,
         IResponse<ITextResponse>
       >("texts", request);
-      console.log("response createtext", response);
       return response;
     } catch (error: unknown) {
       throw error;
@@ -75,7 +79,6 @@ class TextService {
         IText,
         IResponse<ITextResponse>
       >("texts", request, id);
-      console.log("response updateText", response);
       return response;
     } catch (error: unknown) {
       throw error;
@@ -87,7 +90,6 @@ class TextService {
       const response = await this.utilInfrastructure.delete<
         IResponse<ITextResponse>
       >("texts", id);
-      console.log("response delete text", response);
       return response;
     } catch (error: unknown) {
       throw error;

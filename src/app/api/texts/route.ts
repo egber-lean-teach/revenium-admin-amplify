@@ -1,15 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
 import UtilApplication from "../utils/util.application";
 import { textService as TextService } from "../services/texts.service";
+import { ITextResponse } from "@/app/core/application/dto/textResponse";
 
-export async function GET(): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  const page = req.nextUrl.searchParams.get("page");
+  const size = req.nextUrl.searchParams.get("size");
+
+  if (!page || !size) {
+    return NextResponse.json(
+      {
+        message: "Is required page and size",
+        statusCode: 400,
+        data: [],
+      },
+      { status: 400 }
+    );
+  }
   try {
-    const texts = await TextService.getAll();
+    const [values, length]: [ITextResponse, number] = await TextService.getAll(
+      parseInt(page),
+      parseInt(size)
+    );
     return NextResponse.json(
       {
         message: "Get all texts success",
         statusCode: 200,
-        data: texts,
+        data: values,
+        length: length,
       },
       { status: 200 }
     );
@@ -173,9 +191,6 @@ export async function DELETE(req: NextRequest): Promise<NextResponse> {
 
   try {
     const textDelete = await TextService.deleteText(id);
-
-    console.log("text delete", textDelete);
-
     if (textDelete.message === "not found") {
       return NextResponse.json(
         {
