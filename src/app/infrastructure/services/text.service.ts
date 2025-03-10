@@ -95,5 +95,5 @@ class TextService {
   }
 }
 
-const organizationService = new TextService();
-export default organizationService;
+const textService = new TextService();
+export default textService;

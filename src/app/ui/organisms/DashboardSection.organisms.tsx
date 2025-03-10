@@ -10,7 +10,7 @@ import {
   IText,
   textInitial,
 } from "@/app/core/application/interfaces/text.interface";
-import organizationService from "@/app/infrastructure/services/text.service";
+import TextService from "@/app/infrastructure/services/text.service";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Section from "../molecules/Section";
@@ -74,7 +74,7 @@ export default function DashboardSectionOrganisms({
     }
     console.log("form data", formCreate);
 
-    const data = await organizationService.createText(formCreate);
+    const data = await TextService.createText(formCreate);
     console.log("data", data);
     setModalLoadingContent(true);
     setModalCreate({

@@ -10,7 +10,7 @@ import {
   IText,
   textInitial,
 } from "@/app/core/application/interfaces/text.interface";
-import OrganizationService from "@/app/infrastructure/services/text.service";
+import TextService from "@/app/infrastructure/services/text.service";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Loading from "../atoms/Loading";
@@ -54,13 +54,13 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
       !editFormData.subcategory
     )
       return;
-    const data = await OrganizationService.updateText(editFormData, textId);
+    const data = await TextService.updateText(editFormData, textId);
     console.log("data update", data);
   };
 
   const handleClickDelete = async (): Promise<void> => {
     const textId: string = modalDelete.message.split("/")[0];
-    await OrganizationService.deleteText(textId);
+    await TextService.deleteText(textId);
 
     setModalDelete({
       message: "",

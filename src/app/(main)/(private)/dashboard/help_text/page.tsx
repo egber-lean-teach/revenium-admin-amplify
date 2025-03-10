@@ -1,6 +1,13 @@
+import TextService from "@/app/infrastructure/services/text.service";
 import DashboardSectionOrganisms from "@/app/ui/organisms/DashboardSection.organisms";
 
-export default function Help_textView() {
+export default async function Help_textView() {
+  try {
+    const texts = await TextService.getTexts();
+    console.log("texts", texts);
+  } catch (error: unknown) {
+    return <div>error {JSON.stringify(error)}</div>;
+  }
   return (
     <DashboardSectionOrganisms
       categories={["category1"]}
