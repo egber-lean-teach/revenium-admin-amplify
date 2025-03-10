@@ -1,5 +1,5 @@
 export class UtilInfrastructure {
-  private baseUrl: string = `https://main.dn2z7s6cf30is.amplifyapp.com/api`;
+  private baseUrl: string = `http://localhost:3000/api`;
 
   constructor(baseUrlClient?: string) {
     this.baseUrl = baseUrlClient || this.baseUrl;
@@ -23,6 +23,7 @@ export class UtilInfrastructure {
       headers: headers || undefined,
       method,
       body: JSON.stringify(body) || undefined,
+      next: { revalidate: 60 },
     });
     return response;
   }
@@ -35,7 +36,6 @@ export class UtilInfrastructure {
         "GET",
         headers
       );
-      console.log("response", response);
       return await response.json();
     } catch (error: unknown) {
       throw error;
@@ -51,7 +51,6 @@ export class UtilInfrastructure {
         headers,
         request
       );
-      console.log("response", response);
       return await response.json();
     } catch (error: unknown) {
       throw error;
@@ -67,7 +66,6 @@ export class UtilInfrastructure {
         headers,
         request
       );
-      console.log("response", response);
       return await response.json();
     } catch (error: unknown) {
       throw error;
@@ -82,7 +80,6 @@ export class UtilInfrastructure {
         "DELETE",
         headers
       );
-      console.log("response", response);
       return await response.json();
     } catch (error: unknown) {
       throw error;

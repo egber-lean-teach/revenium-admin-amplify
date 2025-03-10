@@ -16,7 +16,6 @@ export default function IconContent({
   modal = false,
 }: IIconContentProps): React.ReactNode {
   const { user } = useUserState((state) => state);
-  console.log("user --", user);
   return (
     <>
       {modal ? (

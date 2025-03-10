@@ -30,6 +30,7 @@ import FormField from "../molecules/FormField";
 import FormFieldTextArea from "../molecules/FormFieldTextArea";
 import Button from "../atoms/Button";
 import { UtilApplicationInternal } from "@/app/core/application/utils/util.application";
+import Pagination from "../atoms/Pagination";
 
 interface IDashboardSectionOrganismsProps {
   response: ITextResponseComplete;
@@ -72,10 +73,7 @@ export default function DashboardSectionOrganisms({
       setShowErroCreate(true);
       return;
     }
-    console.log("form data", formCreate);
-
     const data = await TextService.createText(formCreate);
-    console.log("data", data);
     setModalLoadingContent(true);
     setModalCreate({
       message: data.message,
@@ -87,7 +85,7 @@ export default function DashboardSectionOrganisms({
       code: data.statusCode,
       status: true,
     });
-    router.push("/dashboard/help_text");
+    router.refresh();
   };
 
   return (
@@ -126,6 +124,7 @@ export default function DashboardSectionOrganisms({
           >
             <IconReload />
           </span>
+          <Pagination />
         </div>
         {modalCreate.status && (
           <Modal
@@ -192,7 +191,6 @@ export default function DashboardSectionOrganisms({
                 <Button
                   variant="third"
                   onClick={() => {
-                    console.log("form data", formCreate);
                     setFormCreate({
                       ...formCreate,
                       ["id"]: UtilApplicationInternal.generateKey(

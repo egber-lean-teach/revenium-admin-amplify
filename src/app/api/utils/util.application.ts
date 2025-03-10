@@ -26,7 +26,6 @@ export default class UtilApplication {
       Bucket: s3Data.bucketName,
       Key: s3Data.key,
     };
-    console.log("s3Data", s3Data);
     try {
       const command = new GetObjectCommand(params);
       const data = await this.s3Client.send(command);

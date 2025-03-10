@@ -1,14 +1,30 @@
 import TextRepository from "@/app/api/repositories/texts.repository";
 import { IDataItem, S3Model } from "@/app/api/models/s3.model";
+import { ITextResponse } from "@/app/core/application/dto/textResponse";
 
 class TextService {
   private textRepository: TextRepository;
   constructor() {
     this.textRepository = new TextRepository();
   }
-  public async getAll() {
+  public async getAll(
+    page: number = 0,
+    size: number = 3
+  ): Promise<[ITextResponse, number]> {
     try {
-      return await this.textRepository.getTexts();
+      const data = await this.textRepository.getTexts();
+      const dataArray = Object.entries(data).map(([key, value]) => {
+        return { key, value };
+      });
+      const dataPaginated = dataArray.slice(page * size, page * size + size);
+      const originalFormat = dataPaginated.reduce(
+        (acc: ITextResponse, { key, value }) => {
+          acc[key] = value;
+          return acc;
+        },
+        {}
+      );
+      return [originalFormat, dataArray.length];
     } catch (error: unknown) {
       throw error;
     }
@@ -50,13 +66,9 @@ class TextService {
     try {
       const texts = await this.textRepository.getTexts();
       const textById = await this.textRepository.getTextById(id);
-      console.log("textBuId", textById);
 
-      console.log("texts---", texts);
       if (!textById) return { message: "not found" };
       delete texts[id];
-
-      console.log("texts---", texts);
       return await this.textRepository.postText(texts);
     } catch (error: unknown) {
       throw error;

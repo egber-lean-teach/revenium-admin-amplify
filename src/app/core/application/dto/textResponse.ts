@@ -8,4 +8,5 @@ export interface ITextResponseComplete {
   message: string;
   statusCode: number;
   data: ITextResponse;
+  length: number;
 }

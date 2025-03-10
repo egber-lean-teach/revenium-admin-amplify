@@ -20,9 +20,6 @@ export default class TextRepository {
   public async getTextById(id: string): Promise<IDataItem> {
     try {
       const data = await this.utilApplication.loadJsonS3();
-      console.log("data", data);
-      console.log("id", id);
-      console.log("data by id", data[id]);
       return data[id];
     } catch (error: unknown) {
       throw error;

@@ -15,7 +15,6 @@ export default function Copy({ value }: { value: string }): React.ReactNode {
 
   useEffect(() => {
     setTimeout(() => {
-      console.log("time");
       setCopied(false);
     }, 2000);
   }, [copied]);
