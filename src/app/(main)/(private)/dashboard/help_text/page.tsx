@@ -1,4 +1,4 @@
-import TextService from "@/app/infrastructure/services/text.service";
+// import TextService from "@/app/infrastructure/services/text.service";
 import DashboardSectionOrganisms from "@/app/ui/organisms/DashboardSection.organisms";
 
 export default async function Help_textView() {
