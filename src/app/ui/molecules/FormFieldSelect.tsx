@@ -26,13 +26,12 @@ export default function FormFieldSelect<B>({
   errors,
   options,
   placeholderCreate,
-  nameCreate,
   formCreate,
   setFormCreate,
 }: IFormFieldSelectProps<B>): React.ReactNode {
   const [showCreateInput, setShowCreateInput] = useState<boolean>(false);
   const [newValue, setNewValue] = useState<string>("");
-  const [showNewInput, setShowNewInput] = useState<boolean>(false);
+  const [showNewInput] = useState<boolean>(false);
   const [showError, setShowError] = useState<string>("");
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +47,15 @@ export default function FormFieldSelect<B>({
       return;
     }
     setShowError("");
+    setFormCreate({
+      ...formCreate,
+      [name]: value,
+    });
     setNewValue(value);
+    // setShowNewInput(true);
+    // setShowCreateInput(false);
+
+    console.log("formCreate", formCreate);
   };
 
   const handleChangeValueSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -86,7 +93,7 @@ export default function FormFieldSelect<B>({
         <div className="relative">
           <Input
             type="text"
-            name={nameCreate}
+            name={name}
             placeholder={placeholderCreate}
             style={{ width: "100%" }}
             onChange={handleChange}
@@ -96,12 +103,12 @@ export default function FormFieldSelect<B>({
               className="absolute top-[15px] right-[20px] cursor-pointer text-[var(--color-green)]"
               icon={<IconCheck />}
               onClick={() => {
-                setFormCreate({
-                  ...formCreate,
-                  [name]: newValue,
-                });
-                setShowNewInput(true);
-                setShowCreateInput(false);
+                // setFormCreate({
+                //   ...formCreate,
+                //   [name]: newValue,
+                // });
+                // setShowNewInput(true);
+                // setShowCreateInput(false);
               }}
             />
           )}

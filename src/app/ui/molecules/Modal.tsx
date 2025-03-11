@@ -37,7 +37,7 @@ export default function Modal({
 
   return (
     <div
-      className={`bg-[var(--color-black-opacity)] w-[100vw] h-[99.5vh] absolute top-0 left-0 flex justify-center items-center transition-all duration-300 ease-in z-100`}
+      className={`bg-[var(--color-black-opacity)] w-[99.2vw] h-[100%] absolute top-0 left-0 flex justify-center items-center transition-all duration-300 ease-in z-100`}
     >
       <div className={`${sizeModal[size]} bg-white rounded-[10px] p-6`}>
         <div className="flex justify-between items-center">

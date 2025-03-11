@@ -9,7 +9,7 @@ export default function Sidebar(): React.ReactNode {
   ];
 
   return (
-    <div className="w-[18vw] h-[91.7vh] border-gray-200 border-r-1 p-6 bg-[var(--color-gray-light)] flex flex-col justify-between">
+    <div className="w-[18vw] h-auto border-gray-200 border-r-1 p-6 bg-[var(--color-gray-light)] flex flex-col justify-between">
       <ul className="flex flex-col gap-2">
         {dataList.map((item, index: number) => (
           <ItemList data={item} key={index} />

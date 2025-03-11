@@ -41,6 +41,12 @@ export default function FormField({
     }
     setShowError("");
     setNewValue(value);
+    setFormCreate({
+      ...formCreate,
+      [name]: value,
+    });
+
+    console.log("formCreate", formCreate);
   };
   return (
     <div className="flex flex-col gap-2">

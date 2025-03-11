@@ -3,28 +3,16 @@ import UtilApplication from "../utils/util.application";
 import { textService as TextService } from "../services/texts.service";
 import { ITextResponse } from "@/app/core/application/dto/textResponse";
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
-  const page = req.nextUrl.searchParams.get("page");
-  const size = req.nextUrl.searchParams.get("size");
-
-  if (!page || !size) {
-    return NextResponse.json(
-      {
-        message: "Is required page and size",
-        statusCode: 400,
-        data: [],
-      },
-      { status: 400 }
-    );
-  }
+export async function GET_BY_PAGINATION(
+  page: number,
+  size: number
+): Promise<NextResponse> {
   try {
-    const [values, length]: [ITextResponse, number] = await TextService.getAll(
-      parseInt(page),
-      parseInt(size)
-    );
+    const [values, length]: [ITextResponse, number] =
+      await TextService.getWithPagination(page, size);
     return NextResponse.json(
       {
-        message: "Get all texts success",
+        message: "Get texts by pagination success",
         statusCode: 200,
         data: values,
         length: length,
@@ -39,6 +27,47 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
       { status: 500 }
     );
   }
+}
+
+async function GET_ALL(): Promise<NextResponse> {
+  try {
+    const texts = await TextService.getTexts();
+    if (!texts) {
+      return NextResponse.json(
+        {
+          message: "No data available",
+          statusCode: 404,
+          data: [],
+        },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json(
+      {
+        message: "Get all texts success",
+        statusCode: 200,
+        data: texts,
+      },
+      { status: 200 }
+    );
+  } catch (error: unknown) {
+    return NextResponse.json(
+      {
+        message: error,
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  const page = req.nextUrl.searchParams.get("page");
+  const size = req.nextUrl.searchParams.get("size");
+
+  if (page && size) {
+    return GET_BY_PAGINATION(parseInt(page), parseInt(size));
+  }
+  return GET_ALL();
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {

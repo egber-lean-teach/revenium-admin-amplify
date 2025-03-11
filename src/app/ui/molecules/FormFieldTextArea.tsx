@@ -25,6 +25,7 @@ export default function FormFieldTextArea({
       ...formCreate,
       [name]: value,
     });
+    console.log("formCreate", formCreate);
   };
   return (
     <div className="flex flex-col gap-2">

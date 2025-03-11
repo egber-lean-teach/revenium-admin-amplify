@@ -1,4 +1,5 @@
 "use client";
+import { useModalLoadingContentState } from "@/app/core/application/global-state/modalLoadingContent.state";
 import { usePaginationState } from "@/app/core/application/global-state/pagination.state";
 import { useSearchParams, useRouter } from "next/navigation";
 
@@ -6,6 +7,9 @@ export default function Pagination(): React.ReactNode {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { pagination, setPagination } = usePaginationState((state) => state);
+  const { setModalLoadingContent } = useModalLoadingContentState(
+    (state) => state
+  );
   const currentPage: number = pagination.page;
 
   const handleClickPagination = (newPage: number) => {
@@ -13,6 +17,7 @@ export default function Pagination(): React.ReactNode {
     setPagination({ page: newPage, totalPage: pagination.totalPage });
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", newPage.toString());
+    setModalLoadingContent(true);
     router.push(`/dashboard/help_text?${params.toString()}`);
   };
   return (

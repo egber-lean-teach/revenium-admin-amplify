@@ -14,12 +14,6 @@ export default function ManageUser({
   const router = useRouter();
 
   useEffect(() => {
-    if (
-      user?.primaryEmailAddress?.emailAddress.split("@")[1] !== "revenium.io"
-    ) {
-      router.push("/user-not-allowed");
-      return;
-    }
     if (user) {
       const {
         id,
@@ -29,6 +23,11 @@ export default function ManageUser({
         lastName,
         imageUrl,
       } = user;
+
+      if (primaryEmailAddress?.emailAddress.split("@")[1] !== "revenium.io") {
+        router.push("/user-not-allowed");
+        return;
+      }
 
       setUser({
         id,
