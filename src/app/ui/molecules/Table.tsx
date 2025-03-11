@@ -39,6 +39,10 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
   const [modalDelete, setModalDelete] =
     useState<IModalMessage>(initialModalMessage);
   const [showErrorEdit] = useState<boolean>(false);
+  const [textById, setTextById] = useState<IText>(textInitial);
+  const [modalSave, setModalSave] =
+    useState<IModalMessage>(initialModalMessage);
+
   const router = useRouter();
 
   const handleClickEdit = async (
@@ -56,6 +60,17 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
       return;
     const data = await TextService.updateText(editFormData, textId);
     console.log("data update", data);
+    setModalLoadingContent(true);
+    setModalSave({
+      message: data.message,
+      code: data.statusCode,
+      status: true,
+    });
+    setModalEdit({
+      ...modalEdit,
+      status: false,
+    });
+    router.refresh();
   };
 
   const handleClickDelete = async (): Promise<void> => {
@@ -68,12 +83,12 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
       status: false,
     });
     setModalLoadingContent(true);
-    router.push("/help_text");
+    router.push("/dashboard/help_text");
   };
 
   return (
     <>
-      <table className="border border-gray-200 w-full table-auto rounded-lg">
+      <table className="border border-gray-200 w-full table-auto rounded-lg min-h-[650px]">
         <thead>
           <tr className="border-b border-gray-200 hover:bg-[var(--color-gray-light)]">
             {headers.map((header: string, index: number) => (
@@ -120,13 +135,14 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
                   <div className="flex gap-2">
                     <Button
                       variant="default"
-                      onClick={() =>
+                      onClick={() => {
                         setModalEdit({
                           message: `${value.id}`,
                           code: 0,
                           status: true,
-                        })
-                      }
+                        });
+                        setTextById(value);
+                      }}
                     >
                       <IconEdit />
                     </Button>
@@ -156,7 +172,7 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
           size="sm"
           title="Please Confirm"
           subtitle={`Are you sure you want delete text: ${
-            modalDelete.message.split("/")[0]
+            modalDelete.message.split("/")[1]
           }`}
           returnPage="help_text"
         >
@@ -197,9 +213,9 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
               name="category"
               errors={["Is necesary a value", "Spaces are not allowed"]}
               id="category"
-              options={[""]}
+              options={[textById.category]}
               nameCreate="newCategory"
-              placeholderCreate="Create new category"
+              placeholderCreate="Update category"
               formCreate={editFormData}
               setFormCreate={setEditFormData}
             />
@@ -209,16 +225,16 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
               name="subcategory"
               errors={["Is necesary a value", "Spaces are not allowed"]}
               id="subcategory"
-              options={[""]}
+              options={[textById.subcategory]}
               nameCreate="newSubcategory"
-              placeholderCreate="Create new subcategory"
+              placeholderCreate="Update subcategory"
               formCreate={editFormData}
               setFormCreate={setEditFormData}
             />
             <FormField
               label="Name"
               name="name"
-              placeholder=""
+              placeholder={`Update name: ${textById.name}`}
               errors={["Is necesary a value", "Spaces are not allowed"]}
               type="text"
               formCreate={editFormData}
@@ -228,7 +244,10 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
               error=""
               label="Description"
               name="description"
-              placeholder="Enter description"
+              placeholder={`Update description: ${textById.description
+                .split(" ")
+                .slice(0, 3)
+                .join(" ")}...`}
               formCreate={editFormData}
               setFormCreate={setEditFormData}
             />
@@ -237,9 +256,6 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
                 Error. Is required all params
               </span>
             )}
-            <span className="text-[.9rem] text-[var(--color-text-gray)] flex justify-end">
-              Check the ✔️ for save the value
-            </span>
             <div className="flex justify-end">
               <Button
                 variant="third"
@@ -258,6 +274,18 @@ export default function Table({ headers, body }: ITableProps): React.ReactNode {
               </Button>
             </div>
           </form>
+        </Modal>
+      )}
+      {modalSave.status && (
+        <Modal
+          open={modalSave}
+          setOpen={setModalSave}
+          size="sm"
+          title=""
+          subtitle=""
+          returnPage="/dashboard/help_text"
+        >
+          <p>{modalSave.message}</p>
         </Modal>
       )}
     </>

@@ -2,6 +2,7 @@ import { Metadata, ResolvingMetadata } from "next";
 import TextService from "@/app/infrastructure/services/text.service";
 import ProviderPagination from "@/app/ProvidePagination";
 import DashboardSectionOrganisms from "@/app/ui/organisms/DashboardSection.organisms";
+import ManageUser from "@/app/ui/atoms/ManageUser";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -29,7 +30,7 @@ export default async function Help_textView({ searchParams }: Props) {
       : 0;
     const size: number = searchParamsResolved.totalPage
       ? parseInt(searchParamsResolved.totalPage as string)
-      : 3;
+      : 20;
     const texts = await TextService.getTexts(page, size);
     const categories = await TextService.getCategories();
     const subcategories = await TextService.getSubcategories();
@@ -43,11 +44,13 @@ export default async function Help_textView({ searchParams }: Props) {
 
     return (
       <ProviderPagination pagination={{ page, totalPage: texts.length }}>
-        <DashboardSectionOrganisms
-          categories={categories}
-          response={texts}
-          subcategories={subcategories}
-        />
+        <ManageUser>
+          <DashboardSectionOrganisms
+            categories={categories}
+            response={texts}
+            subcategories={subcategories}
+          />
+        </ManageUser>
       </ProviderPagination>
     );
   } catch (error: unknown) {

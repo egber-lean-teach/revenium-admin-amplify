@@ -15,7 +15,7 @@ class TextService {
 
   public async getTexts(
     page: number = 0,
-    size: number = 3
+    size: number = 20
   ): Promise<ITextResponseComplete> {
     console.log("page", page);
     console.log("size", size);
@@ -35,6 +35,7 @@ class TextService {
       const response = await this.utilInfrastructure.get<ITextResponseComplete>(
         "texts"
       );
+      console.log("response", response);
       const categories = Object.entries(response.data).map(
         ([, value]) => value.category
       );

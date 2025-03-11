@@ -50,7 +50,7 @@ export default function DashboardSectionOrganisms({
     useState<IModalMessage>(initialModalMessage);
   const [modalSave, setModalSave] =
     useState<IModalMessage>(initialModalMessage);
-  const [showErrorCreate, setShowErroCreate] = useState<boolean>(false);
+  const [showErrorCreate] = useState<boolean>(false);
   const [formCreate, setFormCreate] = useState<IText>(textInitial);
 
   const tableHeaders: string[] = [
@@ -70,7 +70,6 @@ export default function DashboardSectionOrganisms({
       !formCreate.name ||
       !formCreate.subcategory
     ) {
-      setShowErroCreate(true);
       return;
     }
     const data = await TextService.createText(formCreate);
@@ -184,9 +183,6 @@ export default function DashboardSectionOrganisms({
                   Error. Is required all params
                 </span>
               )}
-              <span className="text-[.9rem] text-[var(--color-text-gray)] flex justify-end">
-                Check the ✔️ for save the value
-              </span>
               <div className="flex justify-end">
                 <Button
                   variant="third"
@@ -214,7 +210,7 @@ export default function DashboardSectionOrganisms({
             size="sm"
             title=""
             subtitle=""
-            returnPage="help_text"
+            returnPage="/dashboard/help_text"
           >
             <p>{modalSave.message}</p>
           </Modal>

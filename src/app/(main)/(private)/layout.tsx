@@ -18,7 +18,7 @@ export default function RootLayout({
       <Header />
       <div className="flex w-full">
         <Sidebar />
-        <main className="w-[83vw] p-6">{children}</main>
+        <main className="w-[82vw] p-6">{children}</main>
         <LoadingContent />
       </div>
     </>

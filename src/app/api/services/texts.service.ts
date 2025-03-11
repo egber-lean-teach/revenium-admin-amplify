@@ -7,9 +7,9 @@ class TextService {
   constructor() {
     this.textRepository = new TextRepository();
   }
-  public async getAll(
+  public async getWithPagination(
     page: number = 0,
-    size: number = 3
+    size: number = 20
   ): Promise<[ITextResponse, number]> {
     try {
       const data = await this.textRepository.getTexts();
@@ -26,6 +26,14 @@ class TextService {
         {}
       );
       return [originalFormat, dataArray.length];
+    } catch (error: unknown) {
+      throw error;
+    }
+  }
+  public async getTexts(): Promise<ITextResponse> {
+    try {
+      const data = await this.textRepository.getTexts();
+      return data;
     } catch (error: unknown) {
       throw error;
     }
