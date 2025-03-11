@@ -4,9 +4,8 @@ import { UtilApplicationInternal } from "@/app/core/application/utils/util.appli
 import { IText } from "@/app/core/application/interfaces/text.interface";
 import Select from "../atoms/Select";
 import Input from "../atoms/Input";
-import { IconCheck, IConClose, IconPlus } from "../../../../public/icons";
 import Button from "../atoms/Button";
-import IconContent from "../atoms/IconContent";
+import { IConClose, IconPlus } from "../../../../public/icons";
 
 interface IFormFieldSelectProps<B> {
   label: string;
@@ -84,7 +83,9 @@ export default function FormFieldSelect<B>({
         )}
         <Button
           variant="default"
-          onClick={() => setShowCreateInput(!showCreateInput)}
+          onClick={() => {
+            setShowCreateInput(!showCreateInput);
+          }}
         >
           {showCreateInput ? <IConClose /> : <IconPlus />}
         </Button>
@@ -98,7 +99,7 @@ export default function FormFieldSelect<B>({
             style={{ width: "100%" }}
             onChange={handleChange}
           />
-          {!showError && (
+          {/* {!showError && (
             <IconContent
               className="absolute top-[15px] right-[20px] cursor-pointer text-[var(--color-green)]"
               icon={<IconCheck />}
@@ -111,7 +112,7 @@ export default function FormFieldSelect<B>({
                 // setShowCreateInput(false);
               }}
             />
-          )}
+          )} */}
         </div>
       )}
       {showError && <span className="text-red-400">{showError}</span>}

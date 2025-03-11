@@ -84,25 +84,32 @@ export default function DashboardSectionOrganisms({
       code: data.statusCode,
       status: true,
     });
-    router.refresh();
+    router.push("/dashboard/help_text");
   };
 
   return (
-    <div>
+    <div className="">
       <Section>
         <Title />
-        <div className="flex justify-end mb-3">
+        <div className="flex justify-end mb-3 ">
           <div className="flex flex-col gap-3">
             <div className="flex justify-end">
               <IconContent
                 className="flex flex-center bg-[var(--color-text-gray-hover)] text-white p-2 rounded-[6px] cursor-pointer"
                 icon={<IconPlus />}
-                onClick={() =>
+                onClick={() => {
                   setModalCreate({
                     ...modalCreate,
                     status: true,
-                  })
-                }
+                  });
+                  setFormCreate({
+                    category: "",
+                    description: "",
+                    name: "",
+                    subcategory: "",
+                    id: "",
+                  });
+                }}
               />
             </div>
             <ManageColumn

@@ -3,8 +3,6 @@ import { IText } from "@/app/core/application/interfaces/text.interface";
 import { UtilApplicationInternal } from "@/app/core/application/utils/util.application";
 import { useState } from "react";
 import Input from "../atoms/Input";
-import IconContent from "../atoms/IconContent";
-import { IConBlock, IconCheck } from "../../../../public/icons";
 
 interface IFormFieldProps {
   label: string;
@@ -24,9 +22,9 @@ export default function FormField({
   formCreate,
   setFormCreate,
 }: IFormFieldProps): React.ReactNode {
-  const [newValue, setNewValue] = useState<string>("");
+  const [, setNewValue] = useState<string>("");
   const [showError, setShowError] = useState<string>("");
-  const [disableInput, setDisableInput] = useState<boolean>(false);
+  const [disableInput] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -63,19 +61,6 @@ export default function FormField({
           }}
           disabled={disableInput}
         />
-        {!showError && (
-          <IconContent
-            className="absolute top-[15px] right-[20px] cursor-pointer text-[var(--color-green)]"
-            icon={disableInput ? <IConBlock /> : <IconCheck />}
-            onClick={() => {
-              setFormCreate({
-                ...formCreate,
-                [name]: newValue,
-              });
-              setDisableInput(!disableInput);
-            }}
-          />
-        )}
       </div>
       {showError && <span className="text-red-400">{showError}</span>}
     </div>
