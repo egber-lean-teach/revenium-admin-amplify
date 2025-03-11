@@ -3,7 +3,7 @@ import UtilApplication from "../utils/util.application";
 import { textService as TextService } from "../services/texts.service";
 import { ITextResponse } from "@/app/core/application/dto/textResponse";
 
-export async function GET_BY_PAGINATION(
+async function GET_BY_PAGINATION(
   page: number,
   size: number
 ): Promise<NextResponse> {
