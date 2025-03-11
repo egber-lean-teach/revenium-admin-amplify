@@ -22,7 +22,7 @@ export default clerkMiddleware(
     if (!isPublicRoute(req)) await auth.protect();
   },
   () => ({
-    debug: true,
+    // debug: true,
     secretKey: tenantKeys.tenant1.secretKey,
     publishableKey: tenantKeys.tenant1.publishableKey,
     signInUrl: tenantKeys.tenant1.signInurl,

@@ -14,7 +14,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   console.log("parent", parent);
   const searchParamsResolved = await searchParams;
-  const page = parseInt((searchParamsResolved.page as string) || "1");
+  const page = parseInt((searchParamsResolved.page as string) || "0");
   return {
     title: `Help Texts - Page ${page}`,
     description: `Revenium - Admin`,
@@ -26,13 +26,16 @@ export default async function Help_textView({ searchParams }: Props) {
     const searchParamsResolved = await searchParams;
     const page: number = searchParamsResolved.page
       ? parseInt(searchParamsResolved.page as string)
-      : 1;
+      : 0;
     const size: number = searchParamsResolved.totalPage
       ? parseInt(searchParamsResolved.totalPage as string)
       : 3;
     const texts = await TextService.getTexts(page, size);
     const categories = await TextService.getCategories();
     const subcategories = await TextService.getSubcategories();
+
+    console.log("categories", categories);
+    console.log("subcategories", subcategories);
 
     if (!texts || !categories || !subcategories) {
       return <div>No data available.</div>;

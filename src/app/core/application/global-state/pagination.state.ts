@@ -12,8 +12,8 @@ interface IPaginationProps {
 
 export const usePaginationState = create<IPaginationState>((set) => ({
   pagination: {
-    page: 1,
-    totalPage: 1,
+    page: 0,
+    totalPage: 0,
   },
   setPagination: ({ page, totalPage }: IPaginationProps) =>
     set({ pagination: { page, totalPage } }),
